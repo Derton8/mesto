@@ -1,0 +1,8 @@
+.page {
+  margin: 0 auto;
+  padding: 45px 200px 60px;
+  background-color: #000000;
+  color: #FFFFFF;
+  max-width: 1280px;
+  box-sizing: border-box;
+}
