@@ -1,0 +1,20 @@
+.form__sub-btn {
+  background-color: black;
+  justify-self: center;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  color: #FFFFFF;
+  padding: 0;
+  box-sizing: border-box;
+  border: 0;
+  height: 50px;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.form__sub-btn:hover {
+  opacity: 0.8;
+}
