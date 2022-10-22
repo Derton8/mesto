@@ -8,10 +8,10 @@
   margin-right: 5px;
 }
 
-.photo-grid__button:checked {
-  background: url(../../../images/like-button-active.svg)
+.photo-grid__button:hover {
+  opacity: 0.5;
 }
 
-.photo-grid__button:focus{
-  background: url(../../../images/like-button-active.svg)
+.photo-grid__button:active {
+  background: url(../../../images/like-button-active.svg);
 }
