@@ -7,3 +7,12 @@
   white-space: nowrap;
   grid-area: title;
 }
+
+@media screen and (max-width: 700px) {
+  .profile__title {
+    justify-self: flex-end;
+    font-style: normal;
+    font-size: 27px;
+    line-height: 33px;
+  }
+}

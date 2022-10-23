@@ -3,4 +3,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #FFFFFF;
+  margin: 0;
+  box-sizing: border-box;
+  background-color: black;
 }

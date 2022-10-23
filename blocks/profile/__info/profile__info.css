@@ -11,3 +11,15 @@
   "avatar title button"
   "avatar subtitle subtitle";
 }
+
+@media screen and (max-width: 700px) {
+  .profile__info {
+    gap: 26px 0;
+    grid-template-columns: repeat(1, auto);
+    grid-template-rows: 120px 26px 14px;
+    grid-template-areas:
+    "avatar avatar"
+    "title button"
+    "subtitle subtitle";
+  }
+}

@@ -18,3 +18,12 @@
 .form__sub-btn:hover {
   opacity: 0.8;
 }
+
+@media screen and (max-width: 700px) {
+  .form__sub-btn {
+    font-size: 14px;
+    line-height: 17px;
+    height: 46px;
+  }
+}
+

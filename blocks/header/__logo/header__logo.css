@@ -2,4 +2,18 @@
   background-image: url(../../../images/logo/logo.svg);
   height: 33px;
   width: 142px;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  object-fit: contain;
+  background-size: cover;
+  background-position: center;
 }
+
+@media screen and (max-width: 920px) {
+  .header__logo {
+    margin-left: 27px;
+    max-width: 103px;
+    max-height: 24px;
+  }
+}
+
