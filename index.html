@@ -7,10 +7,8 @@
   <title>Mesto</title>
 </head>
 <body class="body">
-  <div class="page">
     <header class="header">
       <div class="header__logo"></div>
-      <div class="header__line"></div>
     </header>
     <main class="main">
       <section class="profile">
@@ -20,49 +18,49 @@
           <button class="profile__edit-button" type="button"></button>
           <p class="profile__subtitle">Исследователь океана</p>
         </div>
-        <button class="profile__add-button"></button>
+        <button class="profile__add-button" type="button"></button>
       </section>
       <section class="photo-grid">
         <figure class="photo-grid__item">
           <img class="photo-grid__img" src="images/photo-grid-img1.jpg" alt="Рускеала">
           <figcaption class="photo-grid__caption">
             <h2 class="photo-grid__title">Рускеала</h2>
-            <button class="photo-grid__button"></button>
+            <button class="photo-grid__button" type="button"></button>
           </figcaption>  
         </figure>
         <figure class="photo-grid__item">
           <img class="photo-grid__img" src="images/photo-grid-img2.jpg" alt="Сихотэ-Алинь">
           <figcaption class="photo-grid__caption">
             <h2 class="photo-grid__title">Сихотэ-Алинь</h2>
-            <button class="photo-grid__button"></button>
+            <button class="photo-grid__button" type="button"></button>
           </figcaption>  
         </figure>
         <figure class="photo-grid__item">
           <img class="photo-grid__img" src="images/photo-grid-img3.jpg" alt="Карачаево-Черкесская Республика">
           <figcaption class="photo-grid__caption">
             <h2 class="photo-grid__title">Карачаево-Черкесская Республика</h2>
-            <button class="photo-grid__button"></button>
+            <button class="photo-grid__button" type="button"></button>
           </figcaption>  
         </figure>
         <figure class="photo-grid__item">
           <img class="photo-grid__img" src="images/photo-grid-img4.jpg" alt="Тамбукан">
           <figcaption class="photo-grid__caption">
             <h2 class="photo-grid__title">Тамбукан</h2>
-            <button class="photo-grid__button"></button>
+            <button class="photo-grid__button" type="button"></button>
           </figcaption>  
         </figure>
         <figure class="photo-grid__item">
           <img class="photo-grid__img" src="images/photo-grid-img5.jpg" alt="Байкал">
           <figcaption class="photo-grid__caption">
             <h2 class="photo-grid__title">Байкал</h2>
-            <button class="photo-grid__button"></button>
+            <button class="photo-grid__button" type="button"></button>
           </figcaption>  
         </figure>
         <figure class="photo-grid__item">
           <img class="photo-grid__img" src="images/photo-grid-img6.jpg" alt="Архыз">
           <figcaption class="photo-grid__caption">
             <h2 class="photo-grid__title">Архыз</h2>
-            <button class="photo-grid__button"></button>
+            <button class="photo-grid__button" type="button"></button>
           </figcaption>  
         </figure>
       </section>
@@ -70,12 +68,11 @@
     <footer class="footer">
       <p class="footer__copyright">&copy; 2022 Mysenko Danil</p>
     </footer>
-  </div>
   <section class="popup">
     <div class="popup__container">
-      <button class="popup__close-btn"></button>
-      <form class="form">
-        <p class="form__title">Редактировать профиль</p>
+      <button class="popup__close-btn" type="button"></button>
+      <form class="form" name="editForm">
+        <h2 class="form__title">Редактировать профиль</h2>
         <input class="form__input" type="text" name="name">
         <input class="form__input" type="text" name="job">
         <button class="form__sub-btn" type="submit">Сохранить</button>

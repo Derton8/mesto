@@ -2,14 +2,14 @@
   display: flex;
   justify-content: space-between;
   min-height: 120px;
-  padding-bottom: 51px;
+  padding: 40px 0 51px;
   max-width: 880px;
   margin: 0 auto;
 }
 
 @media screen and (max-width: 920px) {
   .profile {
-    padding: 0 19px 36px;
+    padding: 42px 19px 36px;
   }
 }
 
