@@ -1,4 +1,7 @@
 .form__sub-btn {
+  border: 0;
+  border-radius: 2px;
+  outline: 0;
   background-color: black;
   justify-self: center;
   font-style: normal;
@@ -9,10 +12,8 @@
   color: #FFFFFF;
   padding: 0;
   box-sizing: border-box;
-  border: 0;
-  height: 50px;
+  min-height: 50px;
   cursor: pointer;
-  border-radius: 2px;
 }
 
 .form__sub-btn:hover {
@@ -23,7 +24,7 @@
   .form__sub-btn {
     font-size: 14px;
     line-height: 17px;
-    height: 46px;
+    min-height: 46px;
   }
 }
 

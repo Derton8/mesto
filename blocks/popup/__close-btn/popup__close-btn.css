@@ -1,10 +1,12 @@
 .popup__close-btn {
   position: fixed;
-  background: url(../../../images/close-button.svg);
+  outline: 0;
   border: 0;
+  background-color: transparent;
+  background: url(../../../images/close-button.svg);
   background-repeat: no-repeat;
-  object-position: center;
-  object-fit: cover;
+  background-position: center;
+  background-size: cover;
   width: 32px;
   height: 32px;
   align-self: flex-end;
@@ -23,7 +25,5 @@
     width: 20px;
     height: 20px;
     transform: translate(22px, -61px);
-    background-position: center;
-    background-size: cover;
   }
 }

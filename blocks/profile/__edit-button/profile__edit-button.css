@@ -9,10 +9,11 @@
   background-position: center;
   cursor: pointer;
   align-self: flex-start;
-  grid-area: button;
   margin-left: 18px;
   margin-top: 15px;
   padding: 0;
+  flex-shrink: 0;
+  grid-area: button;
 }
 
 .profile__edit-button:hover {
@@ -26,5 +27,6 @@
     height: 18px;
     width: 18px;
     margin-top: 8.5px;
+    justify-self: flex-start;
   }
 }

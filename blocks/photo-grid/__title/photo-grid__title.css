@@ -1,6 +1,6 @@
 .photo-grid__title {
   margin: 0;
-  max-width: 200px;
+  width: 100%;
   font-style: normal;
   font-weight: 900;
   font-size: 24px;
