@@ -8,9 +8,11 @@
   background-repeat: no-repeat;
   background-position: center;
   cursor: pointer;
-  align-self: flex-end;
+  align-self: flex-start;
   grid-area: button;
   margin-left: 18px;
+  margin-top: 15px;
+  padding: 0;
 }
 
 .profile__edit-button:hover {
@@ -19,9 +21,10 @@
 
 @media screen and (max-width: 700px) {
   .profile__edit-button {
-    align-self: flex-end;
+    margin: 0;
     margin-left: 10px;
     height: 18px;
     width: 18px;
+    margin-top: 8.5px;
   }
 }

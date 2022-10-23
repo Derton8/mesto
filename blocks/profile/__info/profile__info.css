@@ -3,7 +3,7 @@
   padding: 0;
   display: grid;
   grid-template-columns: repeat(3, auto);
-  grid-template-rows: 22px 39px 18px;
+  grid-template-rows: 22px 48px 29px;
   gap: 0;
   box-sizing: border-box;
   grid-template-areas:
@@ -16,7 +16,7 @@
   .profile__info {
     gap: 26px 0;
     grid-template-columns: repeat(1, auto);
-    grid-template-rows: 120px 26px 14px;
+    grid-template-rows: 120px 33px 14px;
     grid-template-areas:
     "avatar avatar"
     "title button"
