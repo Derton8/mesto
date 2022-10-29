@@ -1,7 +1,7 @@
 const initialCards = [
   {
-    name: 'Рускеала',
-    link: 'images/ruskeala.jpg'
+    name: 'Архыз',
+    link: 'images/arkhyz.jpg'
   },
   {
     name: 'Сихотэ-Алинь',
@@ -20,8 +20,8 @@ const initialCards = [
     link: 'images/baikal.jpg'
   },
   {
-    name: 'Архыз',
-    link: 'images/arkhyz.jpg'
+    name: 'Рускеала',
+    link: 'images/ruskeala.jpg'
   }
 ];
 
@@ -59,17 +59,16 @@ const openPopup = (popup) => {
 
 const closePopup = (popup) => {
   popup.classList.remove(POPUP_OPENED_CLASS);
-  console.log('close');
 }
 
 //Функция отправки данных формы
-const formSubmitHandler = (evt) => {
+const editFormSubmitHandler = (evt) => {
   evt.preventDefault();
   profileName.textContent = nickInput.value;
   profileJob.textContent = jobInput.value;
   closePopup(editPopup);
 }
-editForm.addEventListener('submit', formSubmitHandler);
+editForm.addEventListener('submit', editFormSubmitHandler);
 
 //Функция добавления карточки
 const createCard = (data) => {
@@ -80,11 +79,28 @@ const createCard = (data) => {
   cardElement.querySelector('.photo-grid__img').alt = data.name;
   cardElement.querySelector('.photo-grid__title').textContent = data.name;
 
-  photosContainer.append(cardElement);
+  //Лайк карточки
+  cardElement.querySelector('.photo-grid__button').addEventListener('click', (evt) => {
+    console.log(evt.target);
+    evt.target.classList.toggle('photo-grid__button_active');
+  });
+
+  photosContainer.prepend(cardElement);
 }
 
-//Создание начальных карточек
+//Добавление начальных карточек
 initialCards.forEach(createCard);
+
+//Добавлениe новых карточек
+const addFormSubmitHandler = (evt) => {
+  evt.preventDefault();
+  const card = [{name: nameInput.value, link: linkInput.value}];
+  card.forEach(createCard);
+  closePopup(addPopup);
+  nameInput.value = '';
+  linkInput.value = '';
+}
+addForm.addEventListener('submit', addFormSubmitHandler)
 
 //Открытие попапа для формы редактирования профиля
 editBtn.addEventListener('click', () => {
@@ -103,3 +119,5 @@ closeBtns.forEach((button) => {
   const popup = button.closest('.popup');
   button.addEventListener('click', () => closePopup(popup));
 });
+
+
