@@ -35,6 +35,7 @@ const addPopup = document.querySelector('.popup-add-card');
 const editBtn = document.querySelector('.profile__edit-button');
 const addBtn = document.querySelector('.profile__add-button');
 const closeBtns = document.querySelectorAll('.popup__close-btn');
+const deleteBtn = document.querySelector('.photo-grid__delete-button');
 
 //Форма редактирования профиля
 const editForm = document.forms.editForm;
@@ -81,8 +82,12 @@ const createCard = (data) => {
 
   //Лайк карточки
   cardElement.querySelector('.photo-grid__button').addEventListener('click', (evt) => {
-    console.log(evt.target);
     evt.target.classList.toggle('photo-grid__button_active');
+  });
+
+  //Удаление карточки
+  cardElement.querySelector('.photo-grid__delete-button').addEventListener('click', () => {
+    cardElement.remove();
   });
 
   photosContainer.prepend(cardElement);
@@ -119,5 +124,3 @@ closeBtns.forEach((button) => {
   const popup = button.closest('.popup');
   button.addEventListener('click', () => closePopup(popup));
 });
-
-
