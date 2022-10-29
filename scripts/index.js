@@ -27,31 +27,51 @@ const initialCards = [
 
 const POPUP_OPENED_CLASS = 'popup_opened';
 
+//Поп-апы
+const editPopup = document.querySelector('.popup-edit-card');
+const addPopup = document.querySelector('.popup-add-card');
+
+//Кнопки
 const editBtn = document.querySelector('.profile__edit-button');
-const popup = document.querySelector('.popup');
-const closeBtn = popup.querySelector('.popup__close-btn');
+const addBtn = document.querySelector('.profile__add-button');
+const closeBtns = document.querySelectorAll('.popup__close-btn');
+
+//Форма редактирования профиля
 const editForm = document.forms.editForm;
 const nickInput = editForm.nick;
 const jobInput = editForm.job;
+
+//Форма добавления карточки
+const addForm = document.forms.addForm;
+const nameInput = addForm.name;
+const linkInput = addForm.link;
+
+//Элементы профиля
 const profileName = document.querySelector('.profile__title');
 const profileJob = document.querySelector('.profile__subtitle');
+
+//Элементы фото-карточки
 const photosContainer = document.querySelector('.photo-grid');
 
-const openPopup = () => {
+const openPopup = (popup) => {
   popup.classList.add(POPUP_OPENED_CLASS);
 }
 
-const closePopup = () => {
+const closePopup = (popup) => {
   popup.classList.remove(POPUP_OPENED_CLASS);
+  console.log('close');
 }
 
+//Функция отправки данных формы
 const formSubmitHandler = (evt) => {
   evt.preventDefault();
   profileName.textContent = nickInput.value;
   profileJob.textContent = jobInput.value;
-  closePopup;
+  closePopup(editPopup);
 }
+editForm.addEventListener('submit', formSubmitHandler);
 
+//Функция добавления карточки
 const createCard = (data) => {
   const cardTemplate = document.querySelector('.template').content;
   const cardElement = cardTemplate.querySelector('.photo-grid__item').cloneNode(true);
@@ -63,18 +83,23 @@ const createCard = (data) => {
   photosContainer.append(cardElement);
 }
 
+//Создание начальных карточек
 initialCards.forEach(createCard);
 
-
+//Открытие попапа для формы редактирования профиля
 editBtn.addEventListener('click', () => {
-  openPopup();
+  openPopup(editPopup);
   nickInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
 });
 
-closeBtn.addEventListener('click', () => {
-  closePopup();
+//Открытие попапа для формы добавления карточки
+addBtn.addEventListener('click', () => {
+  openPopup(addPopup);
 });
 
-editForm.addEventListener('submit', formSubmitHandler);
-
+//Закрытие попапа
+closeBtns.forEach((button) => {
+  const popup = button.closest('.popup');
+  button.addEventListener('click', () => closePopup(popup));
+});
