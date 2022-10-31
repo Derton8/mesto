@@ -27,9 +27,10 @@ const initialCards = [
 
 const POPUP_OPENED_CLASS = 'popup_opened';
 
-//Поп-апы
+//Попапы
 const editPopup = document.querySelector('.popup-edit-card');
 const addPopup = document.querySelector('.popup-add-card');
+const imgPopup = document.querySelector('.popup-image');
 
 //Кнопки
 const editBtn = document.querySelector('.profile__edit-button');
@@ -53,6 +54,8 @@ const profileJob = document.querySelector('.profile__subtitle');
 
 //Элементы фото-карточки
 const photosContainer = document.querySelector('.photo-grid');
+const fullScreenImage = document.querySelector('.popup__img');
+const titleImage = document.querySelector('.popup__title');
 
 const openPopup = (popup) => {
   popup.classList.add(POPUP_OPENED_CLASS);
@@ -88,6 +91,15 @@ const createCard = (data) => {
   //Удаление карточки
   cardElement.querySelector('.photo-grid__delete-button').addEventListener('click', () => {
     cardElement.remove();
+  });
+
+  //Открытие попапа с картинкой
+  cardElement.querySelector('.photo-grid__img').addEventListener('click', (evt) => {
+    openPopup(imgPopup);
+    const image = evt.target;
+    fullScreenImage.src = image.src;
+    fullScreenImage.alt = image.alt;
+    titleImage.textContent = image.alt;
   });
 
   photosContainer.prepend(cardElement);

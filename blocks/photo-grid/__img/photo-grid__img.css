@@ -5,4 +5,5 @@
   object-position: center;
   border-radius: 10px 10px 0px 0px;
   width: 100%;
+  cursor: pointer;
 }
