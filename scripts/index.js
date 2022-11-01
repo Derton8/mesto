@@ -57,6 +57,9 @@ const photosContainer = document.querySelector('.photo-grid');
 const fullScreenImage = document.querySelector('.popup__img');
 const titleImage = document.querySelector('.popup__title');
 
+//Шаблон карточки
+const cardTemplate = document.querySelector('.template').content;
+
 const openPopup = (popup) => {
   popup.classList.add(POPUP_OPENED_CLASS);
 }
@@ -74,27 +77,28 @@ const editFormSubmitHandler = (evt) => {
 }
 editForm.addEventListener('submit', editFormSubmitHandler);
 
-//Функция добавления карточки
-const createCard = (data) => {
-  const cardTemplate = document.querySelector('.template').content;
+//Функция создания карточки
+const createCard = (item) => {
   const cardElement = cardTemplate.querySelector('.photo-grid__item').cloneNode(true);
-
-  cardElement.querySelector('.photo-grid__img').src = data.link;
-  cardElement.querySelector('.photo-grid__img').alt = data.name;
-  cardElement.querySelector('.photo-grid__title').textContent = data.name;
-
+  cardElement.querySelector('.photo-grid__img').src = item.link;
+  cardElement.querySelector('.photo-grid__img').alt = item.name;
+  cardElement.querySelector('.photo-grid__title').textContent = item.name;
+  return cardElement;
+}
+//Функция добавления карточки
+const renderCard = (element) => {
   //Лайк карточки
-  cardElement.querySelector('.photo-grid__button').addEventListener('click', (evt) => {
+  element.querySelector('.photo-grid__button').addEventListener('click', (evt) => {
     evt.target.classList.toggle('photo-grid__button_active');
   });
 
   //Удаление карточки
-  cardElement.querySelector('.photo-grid__delete-button').addEventListener('click', () => {
-    cardElement.remove();
+  element.querySelector('.photo-grid__delete-button').addEventListener('click', () => {
+    element.remove();
   });
 
   //Открытие попапа с картинкой
-  cardElement.querySelector('.photo-grid__img').addEventListener('click', (evt) => {
+  element.querySelector('.photo-grid__img').addEventListener('click', (evt) => {
     openPopup(imgPopup);
     const image = evt.target;
     fullScreenImage.src = image.src;
@@ -102,20 +106,23 @@ const createCard = (data) => {
     titleImage.textContent = image.alt;
   });
 
-  photosContainer.prepend(cardElement);
+  photosContainer.prepend(element);
 }
 
 //Добавление начальных карточек
-initialCards.forEach(createCard);
+initialCards.forEach(item => {
+  renderCard(createCard(item))
+});
 
 //Добавлениe новых карточек
 const addFormSubmitHandler = (evt) => {
   evt.preventDefault();
   const card = [{name: nameInput.value, link: linkInput.value}];
-  card.forEach(createCard);
+  card.forEach(item => {
+    renderCard(createCard(item))
+  });
   closePopup(addPopup);
-  nameInput.value = '';
-  linkInput.value = '';
+  evt.target.reset();
 }
 addForm.addEventListener('submit', addFormSubmitHandler)
 
