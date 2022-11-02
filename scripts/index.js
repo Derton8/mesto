@@ -83,29 +83,29 @@ const createCard = (item) => {
   cardElement.querySelector('.photo-grid__img').src = item.link;
   cardElement.querySelector('.photo-grid__img').alt = item.name;
   cardElement.querySelector('.photo-grid__title').textContent = item.name;
-  return cardElement;
-}
-//Функция добавления карточки
-const renderCard = (element) => {
+  
   //Лайк карточки
-  element.querySelector('.photo-grid__button').addEventListener('click', (evt) => {
+  cardElement.querySelector('.photo-grid__button').addEventListener('click', (evt) => {
     evt.target.classList.toggle('photo-grid__button_active');
   });
 
   //Удаление карточки
-  element.querySelector('.photo-grid__delete-button').addEventListener('click', () => {
-    element.remove();
+  cardElement.querySelector('.photo-grid__delete-button').addEventListener('click', () => {
+    cardElement.remove();
   });
 
   //Открытие попапа с картинкой
-  element.querySelector('.photo-grid__img').addEventListener('click', (evt) => {
+  cardElement.querySelector('.photo-grid__img').addEventListener('click', (evt) => {
     openPopup(imgPopup);
     const image = evt.target;
     fullScreenImage.src = image.src;
     fullScreenImage.alt = image.alt;
     titleImage.textContent = image.alt;
   });
-
+  return cardElement;
+}
+//Функция добавления карточки
+const renderCard = (element) => {
   photosContainer.prepend(element);
 }
 
