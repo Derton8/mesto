@@ -31,6 +31,7 @@ const POPUP_OPENED_CLASS = 'popup_opened';
 const editPopup = document.querySelector('.popup-edit-card');
 const addPopup = document.querySelector('.popup-add-card');
 const imgPopup = document.querySelector('.popup-image');
+const popups = document.querySelectorAll('.popup');
 
 //Кнопки
 const editBtn = document.querySelector('.profile__edit-button');
@@ -62,10 +63,12 @@ const cardTemplate = document.querySelector('.template').content;
 
 const openPopup = (popup) => {
   popup.classList.add(POPUP_OPENED_CLASS);
+  document.addEventListener('keydown', handleEscapeClosePopup);
 }
 
 const closePopup = (popup) => {
   popup.classList.remove(POPUP_OPENED_CLASS);
+  document.removeEventListener('keydown', handleEscapeClosePopup);
 }
 
 //Функция отправки данных формы
@@ -138,8 +141,26 @@ addBtn.addEventListener('click', () => {
   openPopup(addPopup);
 });
 
-//Закрытие попапа
+//Закрытие попапа кликом по кнопке
 closeBtns.forEach((button) => {
   const popup = button.closest('.popup');
   button.addEventListener('click', () => closePopup(popup));
 });
+
+//Закрытие попапа кликом по оверлею
+popups.forEach((popup) => {
+  popup.addEventListener('click', (evt) => {
+    if(evt.target.classList.contains(POPUP_OPENED_CLASS)){
+      closePopup(evt.target);
+    }
+  });
+});
+
+//Обработчик закрытия попапа клавишей Esc
+const handleEscapeClosePopup = (evt) => {
+  const key = evt.key;
+  if(key === 'Escape') {
+    let openedPopup = document.querySelector('.'+POPUP_OPENED_CLASS);
+    closePopup(openedPopup);
+  }
+};
