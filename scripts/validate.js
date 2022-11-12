@@ -1,6 +1,6 @@
 //Обработчик отправки формы
 const handleFormSubmit = (evt, error) => {
-  evt.preventDefault;
+  evt.preventDefault();
 
 };
 
@@ -30,15 +30,18 @@ const hasInvalidInput = (inputs) => {
 const toggleButtonState = (inputs, submitBtn, inactiveButtonClass) => {
   if(hasInvalidInput(inputs)) {
     submitBtn.classList.add(inactiveButtonClass);
+    submitBtn.disabled = true;
   } else {
     submitBtn.classList.remove(inactiveButtonClass);
+    submitBtn.disabled = false;
   }  
 };
 
-const setEventListeners = (config, form, inputErrorClass) => {
+const setEventListeners = (config, form) => {
   const inputs = Array.from(form.querySelectorAll(config.inputSelector));
   const submitBtn = form.querySelector(config.submitButtonSelector);
   const inactiveButtonClass = config.inactiveButtonClass;
+  const inputErrorClass = config.inputErrorClass;
   toggleButtonState(inputs, submitBtn, inactiveButtonClass);
   inputs.forEach((input) => {
     const error = form.querySelector(`.form-error-${input.name}`);
@@ -51,13 +54,10 @@ const setEventListeners = (config, form, inputErrorClass) => {
 
 const enableValidation = (config) => {
   const forms = Array.from(document.querySelectorAll(config.formSelector));
-  const inputErrorClass = config.inputErrorClass;
   forms.forEach((form) => {
     form.addEventListener('submit', handleFormSubmit);
+    setEventListeners(config, form);
   });
-  forms.forEach((form) => {
-    setEventListeners(config, form, inputErrorClass);
-  });   
 };
 
 enableValidation({
