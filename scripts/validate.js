@@ -1,11 +1,10 @@
 //Обработчик отправки формы
 const handleFormSubmit = (evt, error) => {
   evt.preventDefault();
-
 };
 
 //Обработчик ввода данных
-const handleFormInput = (input, inputErrorClass, form, error) => {
+const handleFormInput = (input, inputErrorClass, error) => {
   if(input.validity.valid) {
     hideInputError(input, error, inputErrorClass);
   } else {
@@ -46,7 +45,7 @@ const setEventListeners = (config, form) => {
   inputs.forEach((input) => {
     const error = form.querySelector(`.form-error-${input.name}`);
     input.addEventListener('input', () => {
-      handleFormInput(input, inputErrorClass, form, error);
+      handleFormInput(input, inputErrorClass, error);
       toggleButtonState(inputs, submitBtn, inactiveButtonClass);
     });
   });
