@@ -1,6 +1,9 @@
 //Обработчик отправки формы
-const handleFormSubmit = (evt, error) => {
+const handleFormSubmit = (evt, config) => {
   evt.preventDefault();
+  submitBtn = evt.target.querySelector(config.submitButtonSelector);
+  submitBtn.classList.add(config.inactiveButtonClass);
+  submitBtn.disabled = true;
 };
 
 //Обработчик ввода данных
@@ -54,7 +57,7 @@ const setEventListeners = (config, form) => {
 const enableValidation = (config) => {
   const forms = Array.from(document.querySelectorAll(config.formSelector));
   forms.forEach((form) => {
-    form.addEventListener('submit', handleFormSubmit);
+    form.addEventListener('submit', (evt) => handleFormSubmit(evt, config));
     setEventListeners(config, form);
   });
 };
