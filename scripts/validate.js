@@ -1,9 +1,8 @@
 //Обработчик отправки формы
 const handleFormSubmit = (evt, config) => {
   evt.preventDefault();
-  submitBtn = evt.target.querySelector(config.submitButtonSelector);
-  submitBtn.classList.add(config.inactiveButtonClass);
-  submitBtn.disabled = true;
+  const submitBtn = evt.target.querySelector(config.submitButtonSelector);
+  disableSubmitButton(submitBtn, config.inactiveButtonClass);
 };
 
 //Обработчик ввода данных
@@ -13,6 +12,16 @@ const handleFormInput = (input, inputErrorClass, error) => {
   } else {
     showInputError(input, error, inputErrorClass);
   }
+};
+
+const disableSubmitButton = (submitBtn, inactiveButtonClass) => {
+  submitBtn.classList.add(inactiveButtonClass);
+  submitBtn.disabled = true;
+};
+
+const enableSubmitButton = (submitBtn, inactiveButtonClass) => {
+  submitBtn.classList.remove(inactiveButtonClass);
+  submitBtn.disabled = false;
 };
 
 const showInputError = (input, error, inputErrorClass) => {
@@ -31,11 +40,9 @@ const hasInvalidInput = (inputs) => {
 
 const toggleButtonState = (inputs, submitBtn, inactiveButtonClass) => {
   if(hasInvalidInput(inputs)) {
-    submitBtn.classList.add(inactiveButtonClass);
-    submitBtn.disabled = true;
+    disableSubmitButton(submitBtn, inactiveButtonClass)
   } else {
-    submitBtn.classList.remove(inactiveButtonClass);
-    submitBtn.disabled = false;
+    enableSubmitButton(submitBtn, inactiveButtonClass);
   }  
 };
 
