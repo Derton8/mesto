@@ -1,3 +1,8 @@
+import Card from './card.js';
+import FormValidator from './formValidator.js';
+import config from "./config.js";
+import initialCards from './initialCards.js';
+
 const POPUP_OPENED_CLASS = 'popup_opened';
 
 //Попапы
@@ -30,10 +35,6 @@ const photosContainer = document.querySelector('.photo-grid');
 const fullScreenImage = document.querySelector('.popup__img');
 const titleImage = document.querySelector('.popup__title');
 
-//Шаблон карточки
-const cardTemplate = document.querySelector('.template').content;
-const cardItem = cardTemplate.querySelector('.photo-grid__item');
-
 const openPopup = (popup) => {
   popup.classList.add(POPUP_OPENED_CLASS);
   document.addEventListener('keydown', handleEscapeClosePopup);
@@ -54,46 +55,30 @@ formEdit.addEventListener('submit', handleProfileFormSubmit);
 
 //Функция создания карточки
 const createCard = (cardData) => {
-  const cardElement = cardItem.cloneNode(true);
-  const cartImage = cardElement.querySelector('.photo-grid__img');
-  cartImage.src = cardData.link;
-  cartImage.alt = cardData.name;
-  cardElement.querySelector('.photo-grid__title').textContent = cardData.name;
-  
-  //Лайк карточки
-  cardElement.querySelector('.photo-grid__button').addEventListener('click', (evt) => {
-    evt.target.classList.toggle('photo-grid__button_active');
-  });
-
-  //Удаление карточки
-  cardElement.querySelector('.photo-grid__delete-button').addEventListener('click', () => {
-    cardElement.remove();
-  });
+  const card = new Card(cardData, '.template');
+  const cardElement = card.generateCard();
+  photosContainer.prepend(cardElement);
 
   //Открытие попапа с картинкой
-  cartImage.addEventListener('click', (evt) => {
+  const cardImage = cardElement.querySelector('.photo-grid__img');
+  cardImage.addEventListener('click', (evt) => {
     const image = evt.target;
     fullScreenImage.src = image.src;
     fullScreenImage.alt = image.alt;
     titleImage.textContent = image.alt;
     openPopup(popupImg);
   });
-  return cardElement;
-}
-//Функция добавления карточки
-const renderCard = (card) => {
-  photosContainer.prepend(card);
 }
 
 //Добавление начальных карточек
 initialCards.forEach(cardData => {
-  renderCard(createCard(cardData))
+  createCard(cardData);
 });
 
 //Добавлениe новых карточек
 const handleCardFormSubmit = (evt) => {
   const cardData = {name: nameInput.value, link: linkInput.value};
-  renderCard(createCard(cardData))
+  createCard(cardData);
   closePopup(popupAdd);
   evt.target.reset();
 }
@@ -134,3 +119,9 @@ const handleEscapeClosePopup = (evt) => {
     closePopup(openedPopup);
   }
 };
+
+//Включение валидации форм
+const editProfileValidator = new FormValidator(config, formEdit);
+editProfileValidator.enableValidation();
+const addCardValidator = new FormValidator(config, formAdd);
+addCardValidator.enableValidation();
