@@ -53,27 +53,23 @@ const handleProfileFormSubmit = () => {
 }
 formEdit.addEventListener('submit', handleProfileFormSubmit);
 
+//Открытие попапа с картинкой
+const handleOpenPopup = (name, link) => {
+  fullScreenImage.src = link;
+  fullScreenImage.alt = name;
+  titleImage.textContent = name;
+  openPopup(popupImg);
+}
+
 //Функция создания карточки
 const createCard = (cardData) => {
-  const card = new Card(cardData, '.template');
+  const card = new Card(cardData, '.template', handleOpenPopup);
   const cardElement = card.generateCard();
   photosContainer.prepend(cardElement);
-
-  //Открытие попапа с картинкой
-  const cardImage = cardElement.querySelector('.photo-grid__img');
-  cardImage.addEventListener('click', (evt) => {
-    const image = evt.target;
-    fullScreenImage.src = image.src;
-    fullScreenImage.alt = image.alt;
-    titleImage.textContent = image.alt;
-    openPopup(popupImg);
-  });
 }
 
 //Добавление начальных карточек
-initialCards.forEach(cardData => {
-  createCard(cardData);
-});
+initialCards.forEach(createCard);
 
 //Добавлениe новых карточек
 const handleCardFormSubmit = (evt) => {
@@ -113,8 +109,7 @@ popups.forEach((popup) => {
 
 //Обработчик закрытия попапа клавишей Esc
 const handleEscapeClosePopup = (evt) => {
-  const key = evt.key;
-  if(key === 'Escape') {
+  if(evt.key === 'Escape') {
     const openedPopup = document.querySelector('.'+POPUP_OPENED_CLASS);
     closePopup(openedPopup);
   }

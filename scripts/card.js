@@ -1,9 +1,14 @@
 export default class Card {
 
-  constructor(data, templateSelector) {
+  constructor(data, templateSelector, onClick) {
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
+    this._element = this._getTemplate();
+    this._cardImage = this._element.querySelector('.photo-grid__img');
+    this._btnLike = this._element.querySelector('.photo-grid__button');
+    this._btnDelete = this._element.querySelector('.photo-grid__delete-button');
+    this._onClick = onClick;
   }
 
   _getTemplate() {
@@ -17,7 +22,7 @@ export default class Card {
   }
 
   _likeCard() {
-    this._element.querySelector('.photo-grid__button').classList.toggle('photo-grid__button_active');
+    this._btnLike.classList.toggle('photo-grid__button_active');
   }
 
   _removeCard() {
@@ -25,21 +30,22 @@ export default class Card {
   }
 
   _setEventListeners() {
-    this._element.querySelector('.photo-grid__button').addEventListener('click', () => {
-      this._likeCard();
+    this._btnLike.addEventListener('click', () => {
+      this._likeCard(this._btnLike);
     });
-    this._element.querySelector('.photo-grid__delete-button').addEventListener('click', () => {
+    this._btnDelete.addEventListener('click', () => {
       this._removeCard();
+    });
+    this._cardImage.addEventListener('click', (evt) => {
+      this._onClick(this._name, this._link);
     });
   }
   
   generateCard() {
-    this._element = this._getTemplate();
     this._setEventListeners();
 
-    const cardImage = this._element.querySelector('.photo-grid__img');
-    cardImage.src = this._link;
-    cardImage.alt = this._name;
+    this._cardImage.src = this._link;
+    this._cardImage.alt = this._name;
     this._element.querySelector('.photo-grid__title').textContent = this._name;
     
     return this._element;
