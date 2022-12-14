@@ -10,8 +10,7 @@ export default class FormValidator {
   //Обработчик отправки формы
   _handleFormSubmit(evt) {
     evt.preventDefault();
-    const submitBtn = evt.target.querySelector(this._config.submitButtonSelector);
-    this._disableSubmitButton(submitBtn);
+    this._disableSubmitButton(this._submitBtn);
   }
 
   //Обработчик ввода данных
@@ -56,6 +55,7 @@ export default class FormValidator {
   }
 
   _setEventListeners() {
+    this._form.addEventListener('submit', (evt) => this._handleFormSubmit(evt, this._config));
     this._toggleButtonState();
     this._inputs.forEach((input) => {
       const error = this._form.querySelector(`.form-error-${input.name}`);
@@ -67,7 +67,6 @@ export default class FormValidator {
   }
 
   enableValidation() {
-    this._form.addEventListener('submit', (evt) => this._handleFormSubmit(evt, this._config));
     this._setEventListeners(this._config);
   }
 }
