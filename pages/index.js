@@ -1,7 +1,12 @@
-import Card from './card.js';
-import FormValidator from './formValidator.js';
-import config from "./config.js";
-import initialCards from './initialCards.js';
+import Card from '../components/card.js';
+import FormValidator from '../components/formValidator.js';
+import Section from '../components/section.js';
+import config from "../utils/config.js";
+import initialCards from '../utils/initialCards.js';
+
+import {
+  cardListSelector
+} from '../utils/constants.js';
 
 const POPUP_OPENED_CLASS = 'popup_opened';
 
@@ -61,16 +66,16 @@ const handleOpenPopup = (name, link) => {
   openPopup(popupImg);
 }
 
+/*
 //Функция создания карточки
 const createCard = (cardData) => {
   const card = new Card(cardData, '.template', handleOpenPopup);
   const cardElement = card.generateCard();
   photosContainer.prepend(cardElement);
 }
-
 //Добавление начальных карточек
 initialCards.forEach(createCard);
-
+________________________________________________________________________________________________
 //Добавлениe новых карточек
 const handleCardFormSubmit = (evt) => {
   const cardData = {name: nameInput.value, link: linkInput.value};
@@ -78,7 +83,26 @@ const handleCardFormSubmit = (evt) => {
   closePopup(popupAdd);
   evt.target.reset();
 }
-formAdd.addEventListener('submit', handleCardFormSubmit)
+formAdd.addEventListener('submit', handleCardFormSubmit)*/
+
+
+
+const defaultCardList = new Section({
+    items: initialCards,
+      renderer: (cardData) => {
+        const card = new Card(cardData, '.template', handleOpenPopup);
+        const cardElement = card.generateCard();
+        defaultCardList.addItem(cardElement);
+      }
+    }, 
+    cardListSelector
+);
+defaultCardList.renderItems();
+
+
+
+
+
 
 //Открытие попапа для формы редактирования профиля
 btnEdit.addEventListener('click', () => {
