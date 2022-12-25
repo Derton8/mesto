@@ -1,26 +1,34 @@
+import arkhyz from '../images/arkhyz.jpg';
+import sihoteAlin from '../images/sihoteAlin.jpg';
+import karachaevo from '../images/karachaevo.jpg';
+import tambukan from '../images/tambukan.jpg';
+import baikal from '../images/baikal.jpg';
+import ruskeala from '../images/ruskeala.jpg';
+
+
 export default [
   {
     name: 'Архыз',
-    link: 'images/arkhyz.jpg'
+    link: arkhyz
   },
   {
     name: 'Сихотэ-Алинь',
-    link: 'images/sihoteAlin.jpg'
+    link: sihoteAlin
   },
   {
     name: 'Карачаево-Черкесская Республика',
-    link: 'images/karachaevo.jpg'
+    link: karachaevo
   },
   {
     name: 'Тамбукан',
-    link: 'images/tambukan.jpg'
+    link: tambukan
   },
   {
     name: 'Байкал',
-    link: 'images/baikal.jpg'
+    link: baikal
   },
   {
     name: 'Рускеала',
-    link: 'images/ruskeala.jpg'
+    link: ruskeala
   }
 ];

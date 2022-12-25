@@ -3,8 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./pages/index.css">
-  <script type="module" src="./pages/index.js"></script>
   <title>Mesto</title>
 </head>
 <body class="body">
@@ -14,7 +12,7 @@
     <main class="main">
       <section class="profile">
         <div class="profile__info">
-          <img class="profile__avatar" src="images/avatar0.jpg" alt="Аватар">
+          <img class="profile__avatar" src="<%=require('./images/avatar0.jpg')%>" alt="Аватар">
           <div class="profile__name">
             <h1 class="profile__title">Жак-Ив Кусто</h1>
             <button class="profile__edit-button" type="button"></button>
