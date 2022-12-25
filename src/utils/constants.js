@@ -19,7 +19,3 @@ export const formAdd = document.forms.addForm;
 export const formEdit = document.forms.editForm;
 export const nickInput = editForm.nick;
 export const jobInput = editForm.job;
-
-//Элементы попапа с картинкой
-export const fullScreenImage = document.querySelector('.popup__img');
-export const titleImage = document.querySelector('.popup__title');

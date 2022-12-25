@@ -1,10 +1,10 @@
 import '../pages/index.css';
-import Card from '../components/card.js';
-import FormValidator from '../components/formValidator.js';
-import Section from '../components/section.js';
-import PopupWithForm from '../components/popupWithForm.js';
-import PopupWithImage from '../components/popupWithImage.js';
-import UserInfo from '../components/userInfo.js';
+import Card from '../components/Card.js';
+import FormValidator from '../components/FormValidator.js';
+import Section from '../components/Section.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import UserInfo from '../components/UserInfo.js';
 import config from "../utils/config.js";
 import initialCards from '../utils/initialCards.js';
 
@@ -20,17 +20,21 @@ import {
   formAdd,
   formEdit,
   nickInput,
-  jobInput,
-  fullScreenImage,
-  titleImage
+  jobInput
 } from '../utils/constants.js';
 
 //Открытие попапа с картинкой
 const handleOpenPopup = (name, link) => {
-  fullScreenImage.src = link;
-  fullScreenImage.alt = name;
-  titleImage.textContent = name;
-  popupImg.open();
+  //fullScreenImage.src = link;
+  //fullScreenImage.alt = name;
+  //titleImage.textContent = name;
+  popupImg.open(name, link);
+}
+
+const renderCard = (cardData) => {
+  const card = new Card(cardData, '.template', handleOpenPopup);
+  const cardElement = card.generateCard();
+  defaultCardList.addItem(cardElement);
 }
 
 //Включение валидации форм
@@ -43,9 +47,7 @@ addCardValidator.enableValidation();
 const defaultCardList = new Section({
     items: initialCards,
       renderer: (cardData) => {
-        const card = new Card(cardData, '.template', handleOpenPopup);
-        const cardElement = card.generateCard();
-        defaultCardList.addItem(cardElement);
+        renderCard(cardData);
       }
     }, 
     cardListSelector
@@ -60,10 +62,8 @@ popupImg.setEventListeners();
 
 //Создание попапа с формой добавления карточки
 const popupAdd = new PopupWithForm(popupAddSelector, {
-  handleFormSubmit: (formData) => {
-    const card = new Card(formData, '.template', handleOpenPopup);
-    const cardElement = card.generateCard();
-    defaultCardList.addItem(cardElement);
+  handleFormSubmit: (cardData) => {
+    renderCard(cardData);
   }
 });
 popupAdd.setEventListeners();
