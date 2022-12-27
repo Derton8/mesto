@@ -5,7 +5,7 @@ export default class PopupWithImage extends Popup{
   constructor(popupSelector) {
     super(popupSelector);
     this._fullScreenImage = this._popup.querySelector('.popup__img');
-    this._titleImage = document.querySelector('.popup__title');
+    this._titleImage = this._popup.querySelector('.popup__title');
   }
 
   open(name, link) {

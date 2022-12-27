@@ -25,16 +25,13 @@ import {
 
 //Открытие попапа с картинкой
 const handleOpenPopup = (name, link) => {
-  //fullScreenImage.src = link;
-  //fullScreenImage.alt = name;
-  //titleImage.textContent = name;
   popupImg.open(name, link);
 }
 
 const renderCard = (cardData) => {
   const card = new Card(cardData, '.template', handleOpenPopup);
   const cardElement = card.generateCard();
-  defaultCardList.addItem(cardElement);
+  return cardElement;
 }
 
 //Включение валидации форм
@@ -47,7 +44,7 @@ addCardValidator.enableValidation();
 const defaultCardList = new Section({
     items: initialCards,
       renderer: (cardData) => {
-        renderCard(cardData);
+        defaultCardList.addItem(renderCard(cardData));
       }
     }, 
     cardListSelector
@@ -64,6 +61,7 @@ popupImg.setEventListeners();
 const popupAdd = new PopupWithForm(popupAddSelector, {
   handleFormSubmit: (cardData) => {
     renderCard(cardData);
+    defaultCardList.addItem(renderCard(cardData));
   }
 });
 popupAdd.setEventListeners();
