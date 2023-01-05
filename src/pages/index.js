@@ -5,6 +5,7 @@ import Section from '../components/Section.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js';
+import Api from '../components/Api.js';
 import config from "../utils/config.js";
 import initialCards from '../utils/initialCards.js';
 
@@ -20,8 +21,31 @@ import {
   formAdd,
   formEdit,
   nickInput,
-  jobInput
+  jobInput,
+  apiConfig
 } from '../utils/constants.js';
+
+const api = new Api(apiConfig);
+
+//Загрузка информации о пользователе с сервера
+api.getUserInfo()
+  .then((data) => {
+    userInfo.setUserInfo({nick: data.name, job: data.about});
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+//Загрузка карточек с сервера
+api.getCardsList()
+  .then((cards) => {
+    cards.map((card) => {
+      defaultCardList.addItem(renderCard({name: card.name, link: card.link}));
+    })
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 //Открытие попапа с картинкой
 const handleOpenPopup = (name, link) => {
@@ -50,9 +74,6 @@ const defaultCardList = new Section({
     cardListSelector
 );
 
-//Добавление начальных карточек
-defaultCardList.renderItems();
-
 //Создание попапа с картинкой
 const popupImg = new PopupWithImage(popupImgSelector);
 popupImg.setEventListeners();
@@ -60,8 +81,13 @@ popupImg.setEventListeners();
 //Создание попапа с формой добавления карточки
 const popupAdd = new PopupWithForm(popupAddSelector, {
   handleFormSubmit: (cardData) => {
-    renderCard(cardData);
-    defaultCardList.addItem(renderCard(cardData));
+    api.addNewCard(cardData)
+      .then((data) => {
+        defaultCardList.addItem(renderCard({name: data.name, link: data.link}));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 });
 popupAdd.setEventListeners();
@@ -70,7 +96,13 @@ popupAdd.setEventListeners();
 const userInfo = new UserInfo({profileNameSelector, profileJobSelector});
 const popupEdit = new PopupWithForm(popupEditSelector, {
   handleFormSubmit: (formData) => {
-    userInfo.setUserInfo(formData);
+    api.setUserInfo(formData)
+      .then((data) => {
+        userInfo.setUserInfo({name: data.name, link: data.link});
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 });
 popupEdit.setEventListeners();
