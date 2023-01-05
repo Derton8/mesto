@@ -39,7 +39,7 @@
       </form>
     </div>
   </section>
-  <section class="popup popup-add-card" >
+  <section class="popup popup-add-card">
     <div class="popup__container">
       <button class="popup__close-btn" type="button"></button>
       <form class="form" name="addForm" novalidate>
@@ -52,7 +52,14 @@
       </form>
     </div>
   </section>
-  <section class="popup popup_image popup-image" >
+  <section class="popup popup-confirm">
+    <div class="popup__container">
+      <button class="popup__close-btn" type="button"></button>
+      <h2 class="form__title">Вы уверены?</h2>
+      <button class="form__sub-btn" type="button">Да</button>
+    </div>
+  </section>
+  <section class="popup popup_image popup-image">
     <figure class="popup__figure">
       <button class="popup__close-btn popup__close-btn_img" type="button"></button>
       <img class="popup__img">
@@ -64,7 +71,7 @@
   <template class="template">
     <figure class="photo-grid__item">
       <img class="photo-grid__img">
-      <button class="photo-grid__delete-button" type="button"></button>
+      <button class="photo-grid__delete-button photo-grid__delete-button_type_hidden" type="button"></button>
       <figcaption class="photo-grid__caption">
         <h2 class="photo-grid__title"></h2>
         <div class="photo-grid__container">

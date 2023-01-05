@@ -19,14 +19,14 @@ export default class Api {
     const response = await fetch(`${this._url}/users/me`, {
       headers: this._headers
     });
-    return this._handleCorrectResponse(response);
+    return await this._handleCorrectResponse(response);
   }
 
   async getCardsList() {
     const response = await fetch(`${this._url}/cards`, {
       headers: this._headers
     });
-    return this._handleCorrectResponse(response);
+    return await this._handleCorrectResponse(response);
   }
 
   async setUserInfo({job, nick}) {
@@ -38,7 +38,7 @@ export default class Api {
         about: job
       })
     });
-    return this._handleCorrectResponse(response);
+    return await this._handleCorrectResponse(response);
   }
 
   async addNewCard({name, link}) {
@@ -50,7 +50,15 @@ export default class Api {
         link: link
       })
     });
-    return this._handleCorrectResponse(response);
+    return await this._handleCorrectResponse(response);
+  }
+
+  async deleteCard(cardId) {
+    const response = await fetch(`${this._url}/cards/${cardId}`, {
+      headers: this._headers,
+      method: 'DELETE',
+    });
+    return await this._handleCorrectResponse(response);
   }
 
 }

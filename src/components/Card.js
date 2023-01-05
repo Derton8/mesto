@@ -1,16 +1,17 @@
 export default class Card {
 
-  constructor(data, templateSelector, onClick) {
+  constructor(data, templateSelector, user, onClick, onRemove) {
     this._name = data.name;
     this._link = data.link;
+    this._data = data;
     this._templateSelector = templateSelector;
+    this._userId = user._id;
     this._element = this._getTemplate();
     this._cardImage = this._element.querySelector('.photo-grid__img');
     this._btnLike = this._element.querySelector('.photo-grid__button');
     this._btnDelete = this._element.querySelector('.photo-grid__delete-button');
-    this._element.querySelector('.photo-grid__counter').textContent = data.likes.length;
     this._onClick = onClick;
-    console.log(data);
+    this._onRemove = onRemove;
   }
 
   _getTemplate() {
@@ -37,11 +38,12 @@ export default class Card {
       this._likeCard(this._btnLike);
     });
     this._btnDelete.addEventListener('click', () => {
-      this._removeCard();
+      this._onRemove(this._element);
     });
     this._cardImage.addEventListener('click', (evt) => {
       this._onClick(this._name, this._link);
     });
+    this._
   }
   
   generateCard() {
@@ -50,6 +52,11 @@ export default class Card {
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
     this._element.querySelector('.photo-grid__title').textContent = this._name;
+    this._element.querySelector('.photo-grid__counter').textContent = this._data.likes.length;
+
+    if(this._data.owner._id === this._userId) {
+      this._btnDelete.classList.remove('photo-grid__delete-button_type_hidden');
+    }
     
     return this._element;
   }

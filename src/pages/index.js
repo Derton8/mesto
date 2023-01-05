@@ -4,16 +4,17 @@ import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
+import PopupConfirm from '../components/PopupConfirm.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
 import config from "../utils/config.js";
-import initialCards from '../utils/initialCards.js';
 
 import {
   cardListSelector,
   popupAddSelector,
   popupEditSelector,
   popupImgSelector,
+  popupConfirmSelector,
   profileNameSelector,
   profileJobSelector,
   btnEdit,
@@ -25,35 +26,40 @@ import {
   apiConfig
 } from '../utils/constants.js';
 
+let user;
 const api = new Api(apiConfig);
 
 //Загрузка информации о пользователе с сервера
 api.getUserInfo()
   .then((data) => {
     userInfo.setUserInfo({nick: data.name, job: data.about});
+    user = data;
   })
   .catch((err) => {
     console.log(err);
   });
-
-//Загрузка карточек с сервера
-api.getCardsList()
-  .then((cards) => {
-    cards.map((card) => {
-      defaultCardList.addItem(renderCard(card));
-    })
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-
-//Открытие попапа с картинкой
-const handleOpenPopup = (name, link) => {
-  popupImg.open(name, link);
-}
 
 const renderCard = (cardData) => {
-  const card = new Card(cardData, '.template', handleOpenPopup);
+  const card = new Card(
+    cardData, 
+    '.template',
+    user, 
+    handleOpenPopup,
+    (card) => {
+      popupConfirm.open(
+        () => {
+          api.deleteCard(cardData._id)
+          .then((data) => {
+            card.remove();
+            card = null;
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+        } 
+      );
+    }
+    );
   const cardElement = card.generateCard();
   return cardElement;
 }
@@ -64,9 +70,20 @@ editProfileValidator.enableValidation();
 const addCardValidator = new FormValidator(config, formAdd);
 addCardValidator.enableValidation();
 
+//Загрузка карточек с сервера
+api.getCardsList()
+  .then((cards) => {
+    cards.reverse().map((card) => {
+      defaultCardList.addItem(renderCard(card));
+    })
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
 //Создание экземпляра секции с фотокарточками
 const defaultCardList = new Section({
-    items: initialCards,
+    items: {},
       renderer: (cardData) => {
         defaultCardList.addItem(renderCard(cardData));
       }
@@ -77,6 +94,15 @@ const defaultCardList = new Section({
 //Создание попапа с картинкой
 const popupImg = new PopupWithImage(popupImgSelector);
 popupImg.setEventListeners();
+
+//Создание попапа подтверждения
+const popupConfirm = new PopupConfirm(popupConfirmSelector);
+popupConfirm.setEventListeners();
+
+//Открытие попапа с картинкой
+const handleOpenPopup = (name, link) => {
+  popupImg.open(name, link);
+}
 
 //Создание попапа с формой добавления карточки
 const popupAdd = new PopupWithForm(popupAddSelector, {

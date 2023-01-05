@@ -3,6 +3,7 @@ export const cardListSelector = '.photo-grid';
 export const popupAddSelector = '.popup-add-card';
 export const popupEditSelector = '.popup-edit-card';
 export const popupImgSelector = '.popup-image';
+export const popupConfirmSelector = '.popup-confirm';
 
 //Селекторы профиля
 export const profileNameSelector = '.profile__title';
