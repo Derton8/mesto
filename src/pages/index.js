@@ -40,7 +40,7 @@ api.getUserInfo()
 api.getCardsList()
   .then((cards) => {
     cards.map((card) => {
-      defaultCardList.addItem(renderCard({name: card.name, link: card.link}));
+      defaultCardList.addItem(renderCard(card));
     })
   })
   .catch((err) => {
@@ -83,7 +83,7 @@ const popupAdd = new PopupWithForm(popupAddSelector, {
   handleFormSubmit: (cardData) => {
     api.addNewCard(cardData)
       .then((data) => {
-        defaultCardList.addItem(renderCard({name: data.name, link: data.link}));
+        defaultCardList.addItem(renderCard(data));
       })
       .catch((err) => {
         console.log(err);

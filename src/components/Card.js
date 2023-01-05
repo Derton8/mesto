@@ -8,7 +8,9 @@ export default class Card {
     this._cardImage = this._element.querySelector('.photo-grid__img');
     this._btnLike = this._element.querySelector('.photo-grid__button');
     this._btnDelete = this._element.querySelector('.photo-grid__delete-button');
+    this._element.querySelector('.photo-grid__counter').textContent = data.likes.length;
     this._onClick = onClick;
+    console.log(data);
   }
 
   _getTemplate() {
