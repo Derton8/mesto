@@ -1,5 +1,3 @@
-import { data } from "autoprefixer";
-
 export default class Api {
 
   constructor(config) {
@@ -19,14 +17,14 @@ export default class Api {
     const response = await fetch(`${this._url}/users/me`, {
       headers: this._headers
     });
-    return await this._handleCorrectResponse(response);
+    return this._handleCorrectResponse(response);
   }
 
   async getCardsList() {
     const response = await fetch(`${this._url}/cards`, {
       headers: this._headers
     });
-    return await this._handleCorrectResponse(response);
+    return this._handleCorrectResponse(response);
   }
 
   async setUserInfo({job, nick}) {
@@ -38,7 +36,7 @@ export default class Api {
         about: job
       })
     });
-    return await this._handleCorrectResponse(response);
+    return this._handleCorrectResponse(response);
   }
 
   async addNewCard({name, link}) {
@@ -50,7 +48,7 @@ export default class Api {
         link: link
       })
     });
-    return await this._handleCorrectResponse(response);
+    return this._handleCorrectResponse(response);
   }
 
   async deleteCard(cardId) {
@@ -58,7 +56,7 @@ export default class Api {
       headers: this._headers,
       method: 'DELETE',
     });
-    return await this._handleCorrectResponse(response);
+    return this._handleCorrectResponse(response);
   }
 
   async likeCard(cardId) {
@@ -66,7 +64,7 @@ export default class Api {
       headers: this._headers,
       method: 'PUT',
     });
-    return await this._handleCorrectResponse(response);
+    return this._handleCorrectResponse(response);
   }
 
   async unlikeCard(cardId) {
@@ -74,7 +72,18 @@ export default class Api {
       headers: this._headers,
       method: 'DELETE',
     });
-    return await this._handleCorrectResponse(response);
+    return this._handleCorrectResponse(response);
+  }
+
+  async editAvatar({link}) {
+    const response = await fetch(`${this._url}/users/me/avatar`, {
+      headers: this._headers,
+      method: 'PATCH',
+      body: JSON.stringify({
+        avatar: link
+      })
+    });
+    return this._handleCorrectResponse(response);
   }
 
 }

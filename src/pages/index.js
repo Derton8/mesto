@@ -13,14 +13,18 @@ import {
   cardListSelector,
   popupAddSelector,
   popupEditSelector,
+  popupEditAvatarSelector,
   popupImgSelector,
   popupConfirmSelector,
   profileNameSelector,
   profileJobSelector,
+  profileAvatarSelector,
   btnEdit,
   btnAdd,
+  btnAvatar,
   formAdd,
   formEdit,
+  formEditAvatar,
   nickInput,
   jobInput,
   apiConfig
@@ -32,8 +36,9 @@ const api = new Api(apiConfig);
 //Загрузка информации о пользователе с сервера
 api.getUserInfo()
   .then((data) => {
-    user = data;
     userInfo.setUserInfo({nick: data.name, job: data.about});
+    userInfo.setUserAvatar({avatar: data.avatar});
+    user = data;
   })
   .catch((err) => {
     console.log(err);
@@ -90,6 +95,8 @@ const handleDeleteLike = (card, cardId) => {
 //Включение валидации форм
 const editProfileValidator = new FormValidator(config, formEdit);
 editProfileValidator.enableValidation();
+const editAvatarValidator = new FormValidator(config, formEditAvatar);
+editAvatarValidator.enableValidation();
 const addCardValidator = new FormValidator(config, formAdd);
 addCardValidator.enableValidation();
 
@@ -142,12 +149,12 @@ const popupAdd = new PopupWithForm(popupAddSelector, {
 popupAdd.setEventListeners();
 
 //Создание попапа с формой редактирования профиля
-const userInfo = new UserInfo({profileNameSelector, profileJobSelector});
+const userInfo = new UserInfo({profileNameSelector, profileJobSelector, profileAvatarSelector});
 const popupEdit = new PopupWithForm(popupEditSelector, {
   handleFormSubmit: (formData) => {
     api.setUserInfo(formData)
       .then((data) => {
-        userInfo.setUserInfo({name: data.name, link: data.link});
+        userInfo.setUserInfo({nick: data.name, job: data.about});
       })
       .catch((err) => {
         console.log(err);
@@ -155,6 +162,20 @@ const popupEdit = new PopupWithForm(popupEditSelector, {
   }
 });
 popupEdit.setEventListeners();
+
+//Создание попапа с формой редактирования аватара
+const popupEditAvatar = new PopupWithForm(popupEditAvatarSelector, {
+  handleFormSubmit: (formData) => {
+    api.editAvatar(formData)
+      .then((data) => {
+        userInfo.setUserAvatar({avatar: data.avatar});
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+});
+popupEditAvatar.setEventListeners();
 
 //Открытие попапа для формы добавления карточки
 btnAdd.addEventListener('click', () => {
@@ -167,4 +188,9 @@ btnEdit.addEventListener('click', () => {
   const userData = userInfo.getUserInfo();
   nickInput.value = userData.nick;
   jobInput.value = userData.job;
+});
+
+//Открытие попапа для формы редактирования аватара
+btnAvatar.addEventListener('click', () => {
+  popupEditAvatar.open();
 });
