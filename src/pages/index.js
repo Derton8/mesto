@@ -33,17 +33,19 @@ import {
 let user;
 const api = new Api(apiConfig);
 
-//Загрузка информации о пользователе с сервера
-api.getUserInfo()
-  .then((data) => {
+Promise.all([api.getUserInfo(), api.getCardsList()])
+  .then(([data, cards]) => {
+    user = data;
     userInfo.setUserInfo({nick: data.name, job: data.about});
     userInfo.setUserAvatar({avatar: data.avatar});
-    user = data;
+
+    cards.reverse().map((card) => {
+      defaultCardList.addItem(renderCard(card));
+    })
   })
   .catch((err) => {
     console.log(err);
   });
-
 
 //Функция создания карточки
 const renderCard = (cardData) => {
@@ -99,17 +101,6 @@ const editAvatarValidator = new FormValidator(config, formEditAvatar);
 editAvatarValidator.enableValidation();
 const addCardValidator = new FormValidator(config, formAdd);
 addCardValidator.enableValidation();
-
-//Загрузка карточек с сервера
-api.getCardsList()
-  .then((cards) => {
-    cards.reverse().map((card) => {
-      defaultCardList.addItem(renderCard(card));
-    })
-  })
-  .catch((err) => {
-    console.log(err);
-  });
 
 //Создание экземпляра секции с фотокарточками
 const defaultCardList = new Section({
