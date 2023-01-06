@@ -32,36 +32,59 @@ const api = new Api(apiConfig);
 //Загрузка информации о пользователе с сервера
 api.getUserInfo()
   .then((data) => {
-    userInfo.setUserInfo({nick: data.name, job: data.about});
     user = data;
+    userInfo.setUserInfo({nick: data.name, job: data.about});
   })
   .catch((err) => {
     console.log(err);
   });
 
+
+//Функция создания карточки
 const renderCard = (cardData) => {
   const card = new Card(
     cardData, 
     '.template',
-    user, 
+    user,
+    handleAddLike,
+    handleDeleteLike,
     handleOpenPopup,
     (card) => {
       popupConfirm.open(
         () => {
           api.deleteCard(cardData._id)
-          .then((data) => {
-            card.remove();
-            card = null;
-          })
-          .catch((err) => {
-            console.log(err);
-          })
+            .then((data) => {
+              card.removeCard();
+            })
+            .catch((err) => {
+              console.log(err);
+            })
         } 
       );
     }
-    );
+  );
   const cardElement = card.generateCard();
   return cardElement;
+}
+
+const handleAddLike = (card, cardId) => {
+  api.likeCard(cardId)
+    .then((data) => {
+      card.likeCard(data);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+}
+
+const handleDeleteLike = (card, cardId) => {
+   api.unlikeCard(cardId)
+    .then((data) => {
+      card.likeCard(data);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
 }
 
 //Включение валидации форм

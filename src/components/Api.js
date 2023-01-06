@@ -61,4 +61,20 @@ export default class Api {
     return await this._handleCorrectResponse(response);
   }
 
+  async likeCard(cardId) {
+    const response = await fetch(`${this._url}/cards/${cardId}/likes`, {
+      headers: this._headers,
+      method: 'PUT',
+    });
+    return await this._handleCorrectResponse(response);
+  }
+
+  async unlikeCard(cardId) {
+    const response = await fetch(`${this._url}/cards/${cardId}/likes`, {
+      headers: this._headers,
+      method: 'DELETE',
+    });
+    return await this._handleCorrectResponse(response);
+  }
+
 }
