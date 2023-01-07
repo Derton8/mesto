@@ -62,6 +62,7 @@ const renderCard = (cardData) => {
           api.deleteCard(cardData._id)
             .then((data) => {
               card.removeCard();
+              popupConfirm.close();
             })
             .catch((err) => {
               console.log(err);
@@ -132,6 +133,7 @@ const popupAdd = new PopupWithForm(popupAddSelector, {
     api.addNewCard(cardData)
       .then((data) => {
         defaultCardList.addItem(renderCard(data));
+        popupAdd.close();
       })
       .catch((err) => {
         console.log(err);
@@ -151,6 +153,7 @@ const popupEdit = new PopupWithForm(popupEditSelector, {
     api.setUserInfo(formData)
       .then((data) => {
         userInfo.setUserInfo({nick: data.name, job: data.about});
+        popupEdit.close();
       })
       .catch((err) => {
         console.log(err);
